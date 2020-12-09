@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+                .bg {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                background-image: url(https://i.imgur.com/w16HASj.png);
+                background-size: 100% 100%;
+                background-position: top center
+                }
+
+            .content {
+                margin-top: 20%
+            }
+
+            .centered {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%)
+            }
+
+            .InputStyle {
+                border-radius: 25px;
+                border: solid 1px white;
+                background: transparent;
+                width: 300px;
+                padding: 10px 20px
+            }
+
+            input,
+            input::-webkit-input-placeholder {
+                font-size: 12px;
+                color: white
+            }
+
+            .social-btn {
+                position: absolute;
+                bottom: 20px;
+                left: 47%
+            }
+
+            i {
+                padding: 5px;
+                color: white
+            }
+
+            input,
+            input:focus {
+                border: solid 1px white;
+                outline: 0;
+                -webkit-appearance: none;
+                box-shadow: nones;
+                -moz-box-shadow: none;
+                -webkit-box-shadow: none
+            }
+
+            .secondLine {
+                font-weight: 350;
+                font-size: 15px;
+                margin-bottom: 15%;
+                color: white
+            }
+
+            .firstLine {
+                font-size: 30px;
+                color: white
+            }
+
+            @media only screen and (max-width: 600px) {
+                .firstLine {
+                    font-size: 20px
+                }
+        </style>
+    </head>
+  <body>
+
+   <div class="bg text-center">
+        <!--Div for Centered Text & Input-->
+        <div class="centered">
+            <p class="firstLine"> H &nbsp; E &nbsp; L &nbsp; L &nbsp; O &nbsp; . &nbsp; W &nbsp; O &nbsp; R &nbsp; L &nbsp; D </p>
+            <p class="secondLine">Web Chat usando Web Sockets</p>
+
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col">
+                        <input id="myMessage" class="InputStyle" placeholder="Escribe aquí tu mensaje " style="font-family:Arial, FontAwesome" type="text">
+                    </div>
+
+                    <div class="col">
+                        <button id="send" type="button" class="btn btn-primary">Enviar </button>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul id="messages" style="color:#FFFF; list-style: none"></ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script>
+    const socket = io()
+
+
+    socket.emit('message', '¡Nuevo cliente conectado!')
+
+    socket.on('message', function(msg) {
+      $('#messages').append('<li style="font-family:Arial, FontAwesome">' + msg + '</li>')
+    })
+
+    $('#send').on('click', function() {
+      socket.send($('#myMessage').val());
+      $('#myMessage').val('');
+    })
+
+    $("#myMessage").keypress(function(event) { 
+            if (event.keyCode === 13) { 
+                $("#send").click(); 
+            } 
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
